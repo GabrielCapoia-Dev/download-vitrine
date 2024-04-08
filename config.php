@@ -12,6 +12,14 @@
         echo $e->getMessage();
     }
 
+
+
+
+
+
+    
+
+
     function formatarValor($valor) {
         // 10.000,00 -> 10000.00
         $valor = str_replace(".","", $valor);
