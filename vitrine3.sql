@@ -1,32 +1,41 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.7
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Tempo de geração: 06-Out-2021 às 13:13
--- Versão do servidor: 5.7.32
--- versão do PHP: 7.4.12
+-- Host: 127.0.0.1
+-- Tempo de geração: 17/04/2024 às 02:28
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Banco de dados: `vitrine3`
 --
+CREATE DATABASE IF NOT EXISTS `vitrine3` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `vitrine3`;
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `banner`
+-- Estrutura para tabela `banner`
 --
 
 CREATE TABLE `banner` (
   `id` int(11) NOT NULL,
   `banner` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `banner`
+-- Despejando dados para a tabela `banner`
 --
 
 INSERT INTO `banner` (`id`, `banner`) VALUES
@@ -36,27 +45,71 @@ INSERT INTO `banner` (`id`, `banner`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `categoria`
+-- Estrutura para tabela `categoria`
 --
 
 CREATE TABLE `categoria` (
   `id` int(11) NOT NULL,
   `nome` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `categoria`
+-- Despejando dados para a tabela `categoria`
 --
 
 INSERT INTO `categoria` (`id`, `nome`) VALUES
 (1, 'Camisetas'),
 (2, 'Tenis'),
-(3, 'Bolsas');
+(3, 'Bolsas'),
+(4, 'Pulseiras'),
+(6, 'Artigos Diversos'),
+(7, 'camiseta2');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `produto`
+-- Estrutura para tabela `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
+  `email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `cliente`
+--
+
+INSERT INTO `cliente` (`id`, `nome`, `cpf`, `email`) VALUES
+(1, 'zap', '12345678911', 'zap@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `jogo`
+--
+
+CREATE TABLE `jogo` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `lancamento` date NOT NULL,
+  `imagem` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `jogo`
+--
+
+INSERT INTO `jogo` (`id`, `nome`, `lancamento`, `imagem`) VALUES
+(1, 'Far Cry 6', '2024-03-01', 'farcry.jpeg'),
+(2, 'Minecraft', '2009-12-08', 'mine.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `produto`
 --
 
 CREATE TABLE `produto` (
@@ -67,10 +120,10 @@ CREATE TABLE `produto` (
   `imagem1` varchar(100) NOT NULL,
   `imagem2` varchar(100) NOT NULL,
   `categoria_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Extraindo dados da tabela `produto`
+-- Despejando dados para a tabela `produto`
 --
 
 INSERT INTO `produto` (`id`, `nome`, `valor`, `descricao`, `imagem1`, `imagem2`, `categoria_id`) VALUES
@@ -81,31 +134,73 @@ INSERT INTO `produto` (`id`, `nome`, `valor`, `descricao`, `imagem1`, `imagem2`,
 (5, 'MOCHILA LEGO', 200, 'Os construtores de hoje são os criadores de amanhã. Por isso, a adidas aliou-se à LEGO® para desenhar uma coleção que celebra a imaginação. Esta mochila infantil tem vários bolsos para guardar pequenos tesouros. A parte de trás acolchoada e as alças ajustáveis tornam o transporte confortável.', 'Mochila_LEGO(r)_Cinza_GM4534_01_standard.jpeg', 'Mochila_LEGO(r)_Cinza_GM4534_02_standard.jpeg', 3),
 (6, 'BOLSA CONVERSÍVEL DUAS EM UMA LEGO', 130, 'Se é possível sonhar. É possível construir. Quando a adidas se uniu à LEGO®, elas criaram uma coleção que celebra a criatividade. As crianças podem usar esta bolsa duas em uma como pochete ou mochila. O bolso com zíper externo guarda pequenos objetos essenciais, e a tira frontal pode ser regulada para encontrar o ajuste perfeito.', 'Bolsa_Conversivel_Duas_em_Uma_LEGO(r)_Cinza_GM4536_01_standard.jpeg', 'Bolsa_Conversivel_Duas_em_Uma_LEGO(r)_Cinza_GM4536_04_standard.jpeg', 3);
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `login` varchar(30) NOT NULL,
+  `senha` varchar(100) NOT NULL,
+  `ativo` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `usuario`
+--
+
+INSERT INTO `usuario` (`id`, `nome`, `email`, `login`, `senha`, `ativo`) VALUES
+(1, 'Bill Gates', 'bill@microsoft.com', 'bill', '$2y$10$Uzz3LDbZgxxMMSzJ40yB8OeBeKZ2hoVopOpFHuWsoHs8J52393DzG', 'S'),
+(2, 'Steve Jobs', 'steve@apple.com', 'steve', '$2y$10$lTL9YeO333b3IzjZm/1tROy5SA50ItlXtHTKVbgsv8MaazaSWLCpC', 'N');
+
 --
 -- Índices para tabelas despejadas
 --
 
 --
--- Índices para tabela `banner`
+-- Índices de tabela `banner`
 --
 ALTER TABLE `banner`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `categoria`
+-- Índices de tabela `categoria`
 --
 ALTER TABLE `categoria`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `produto`
+-- Índices de tabela `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `jogo`
+--
+ALTER TABLE `jogo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `produto`
 --
 ALTER TABLE `produto`
   ADD PRIMARY KEY (`id`),
   ADD KEY `categoria_id` (`categoria_id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- Índices de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `login` (`login`);
+
+--
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
@@ -118,10 +213,33 @@ ALTER TABLE `banner`
 -- AUTO_INCREMENT de tabela `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de tabela `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de tabela `jogo`
+--
+ALTER TABLE `jogo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `produto`
 --
 ALTER TABLE `produto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT de tabela `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
